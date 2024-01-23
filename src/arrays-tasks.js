@@ -439,8 +439,13 @@ function generateOdds(len) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  const answer = indices.reduce(
+    (accumulator, currentValue) => accumulator[currentValue],
+    arr
+  );
+
+  return answer;
 }
 
 /**
@@ -503,8 +508,12 @@ function getIdentityMatrix(n) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  const newArray = numbers
+    .map((item, index) => (item % 2 === 1 ? index : null))
+    .filter((item) => item !== null);
+
+  return newArray;
 }
 
 /**
@@ -519,7 +528,7 @@ function getIndicesOfOddNumbers(/* numbers */) {
  */
 function getHexRGBValues(arr) {
   const newArray = arr.map(
-    (t) => `#${t.toString(16).padStart(6, '0').toUpperCase()}`
+    (item) => `#${item.toString(16).padStart(6, '0').toUpperCase()}`
   );
 
   return newArray;
@@ -613,8 +622,10 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  const newArray = [...arr.slice(-n), ...arr.slice(0, -n)];
+
+  return newArray;
 }
 
 /**
@@ -668,8 +679,21 @@ function sortDigitNamesByNumericOrder(arr) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let newArray;
+  const middle = Math.floor(arr.length / 2);
+
+  if (arr.length % 2 === 0) {
+    newArray = [...arr.slice(-middle), ...arr.slice(0, middle)];
+  } else {
+    newArray = [
+      ...arr.slice(-middle),
+      ...arr.slice(middle, -middle),
+      ...arr.slice(0, middle),
+    ];
+  }
+
+  return newArray;
 }
 
 module.exports = {
