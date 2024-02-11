@@ -23,7 +23,7 @@
 function getIntervalArray(start, end) {
   const array = Array.from(
     { length: end - start + 1 },
-    (_, index) => start + index
+    (item, index) => start + index
   );
 
   return array;
@@ -405,8 +405,15 @@ function calculateBalance(arr) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  const countArrays = Math.ceil(arr.length / chunkSize);
+  const newArray = new Array(countArrays)
+    .fill([])
+    .map((item, index) =>
+      arr.slice(chunkSize * index, chunkSize * index + chunkSize)
+    );
+
+  return newArray;
 }
 
 /**
@@ -422,7 +429,7 @@ function createChunks(/* arr, chunkSize */) {
  *    generateOdds(5) => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  const newArray = Array.from({ length: len }, (_, index) => 2 * index + 1);
+  const newArray = Array.from({ length: len }, (item, index) => 2 * index + 1);
 
   return newArray;
 }
@@ -583,8 +590,20 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  let maxLength = 0;
+
+  nums.reduce((accumulator, currentValue, index, array) => {
+    if (!array[index + 1] || array[index + 1] < currentValue) {
+      maxLength = Math.max(accumulator, maxLength);
+
+      return 1;
+    }
+
+    return accumulator + 1;
+  }, 1);
+
+  return maxLength;
 }
 
 /**
